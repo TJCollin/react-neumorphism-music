@@ -1,0 +1,20 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  .title {
+    color: $color-default;
+    font-size: $font-size-bigger;
+    font-weight: 700;
+  }
+  .menu,
+  .search {
+    width: 20px;
+    text-align: center;
+    color: $color-light-gray;
+    i {
+      font-size: $font-size-normal;
+    }
+  }
+}

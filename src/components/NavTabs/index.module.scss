@@ -1,0 +1,10 @@
+.nav-tabs {
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  color: $color-primary-light;
+  padding: 20px 10px 0;
+  .tab-item {
+    color: $color-primary-light;
+  }
+}
