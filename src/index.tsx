@@ -5,7 +5,7 @@ import "./styles/variable.scss";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "ui-neumorphism/dist/index.css";
+import "collin-ui/dist/index.css";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

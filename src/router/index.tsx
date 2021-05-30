@@ -1,6 +1,5 @@
 import React, { lazy } from "react";
 import { Redirect } from "react-router-dom";
-import { Divider } from "ui-neumorphism";
 
 const HomeLayout = lazy(() => import("../layouts/HomeLayout"));
 const Recommend = lazy(() => import("../pages/Recommend"));

@@ -1,0 +1,30 @@
+.wrapper {
+  width: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  .wrapper-content {
+    overflow: hidden;
+    width: 1050px;
+    padding: 5px;
+    .card-wrapper {
+      color: $color-gray;
+      float: left;
+      margin-right: 10px;
+      width: 160px;
+      white-space: pre-wrap;
+      .img-card {
+        padding: 5px;
+        .img {
+          border-radius: 0.25rem;
+          display: block;
+          width: 150px;
+          height: 150px;
+        }
+      }
+      .desc {
+        padding-top: 5px;
+        font-size: small;
+      }
+    }
+  }
+}

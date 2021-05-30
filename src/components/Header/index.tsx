@@ -1,22 +1,16 @@
 import React, { FC, memo } from "react";
 import styles from "./index.module.scss";
-import { IconButton } from "ui-neumorphism";
-import Icon from "@mdi/react";
-import { mdiMenu, mdiMagnify } from "@mdi/js";
+import { Button, Icon } from "collin-ui";
+
 const Header = () => {
   return (
     <header className={styles["header"]}>
-      <IconButton rounded className={styles["menu"]} size="medium" text={false}>
-        <Icon path={mdiMenu} size={1}></Icon>
-      </IconButton>
-      <IconButton
-        rounded
-        className={styles["search"]}
-        size="medium"
-        text={false}
-      >
-        <Icon path={mdiMagnify} size={1}></Icon>
-      </IconButton>
+      <Button className={styles["menu"]}>
+        <Icon icon="list"></Icon>
+      </Button>
+      <Button className={styles["search"]}>
+        <Icon icon="search"></Icon>
+      </Button>
     </header>
   );
 };

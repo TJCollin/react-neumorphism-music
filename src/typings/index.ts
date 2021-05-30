@@ -2,27 +2,27 @@ export interface IAction {
   type: string;
 }
 
-export interface ISong {
+export interface Song {
   id: number;
   name: string;
-  album: IAlbum;
-  singers: ISinger[];
+  album: Album;
+  singers: Singer[];
   dt: number;
 }
 
-export interface IAlbum {
+export interface Album {
   id: number;
   name: string;
   picUrl: string;
 }
 
-export interface ISinger {
+export interface Singer {
   id: number;
   name: string;
   picUrl: string;
-  hotSongs?: ISong[];
+  hotSongs?: Song[];
 }
 
-export interface IRecom extends IAlbum {
+export interface Recomm extends Album {
   playCount: number;
 }

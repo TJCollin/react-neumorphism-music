@@ -8,6 +8,7 @@ const HomeLayout: FC<RouteConfigComponentProps> = ({ route }) => {
     <>
       <Header></Header>
       <NavTabs></NavTabs>
+      {renderRoutes(route?.routes)}
     </>
   );
 };
