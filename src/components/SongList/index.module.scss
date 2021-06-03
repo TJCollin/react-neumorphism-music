@@ -19,17 +19,23 @@
         }
         .info {
           flex-grow: 1;
+          overflow: hidden;
           margin-right: 10px;
           .song-info {
+            overflow: hidden;
             font-size: xx-small;
             color: $color-light-gray;
             margin-bottom: 0;
+            white-space: nowrap;
+            text-overflow: ellipsis;
           }
           .song-name {
             margin-bottom: 0;
+            text-overflow: ellipsis;
           }
         }
         .play-button {
+          flex-shrink: 0;
           color: $color-primary-light;
           border-radius: 50%;
         }

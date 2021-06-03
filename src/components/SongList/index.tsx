@@ -1,8 +1,8 @@
 import { Button, Card, CardContent, Icon } from "collin-ui";
 import React, { FC, memo } from "react";
-import { Song } from "../../../typings";
+import { Song } from "../../typings";
 import styles from "./index.module.scss";
-import { actions } from "../../../components/Player/store";
+import { actions } from "../Player/store";
 import { useDispatch } from "react-redux";
 
 export interface SongListProps {

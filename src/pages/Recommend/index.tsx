@@ -1,4 +1,5 @@
 import React, { CSSProperties, useEffect, useRef } from "react";
+import React, { CSSProperties, useEffect, useRef } from "react";
 import { Button, Card, CardContent, Icon } from "collin-ui";
 import styles from "./index.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,9 +7,10 @@ import { StoreState } from "../../store";
 import { actions } from "./store";
 import BScroll from "better-scroll";
 import { getRecommendSongsAcrion } from "./store/actions";
-import SongList from "./SongList";
+import SongList from "../../components/SongList";
 import RecommendList from "./RecommendList";
 import Scroll from "../../components/Scroll";
+import AnotherList from "./List";
 import Toast from "../../components/Toast";
 import { stat } from "fs";
 const { getRecommendListAction } = actions;
@@ -25,7 +27,7 @@ const Recommend = () => {
   );
   const disPatch = useDispatch();
   useEffect(() => {
-    !recommondList.length && disPatch(getRecommendListAction(6));
+    !recommondList.length && disPatch(getRecommendListAction(29));
     !recommendSongs.length && disPatch(getRecommendSongsAcrion());
   }, []);
 
@@ -43,7 +45,8 @@ const Recommend = () => {
       <Scroll>
         <div>
           <h5 className={styles["title"]}>推荐歌单</h5>
-          <RecommendList recommondList={recommondList} />
+          {/* <RecommendList songList={recommondList} /> */}
+          <AnotherList songList={recommondList}></AnotherList>
           <h5 className={styles["title"]}>推荐歌曲</h5>
           <SongList recommendSongs={recommendSongs} />
         </div>
