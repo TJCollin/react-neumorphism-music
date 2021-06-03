@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./styles/index.scss";
 import "./styles/variable.scss";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import "./styles/index.scss";
+
 import "collin-ui/dist/index.css";
+import "./index.css";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

@@ -2,6 +2,8 @@ import { Button, Card, CardContent, Icon } from "collin-ui";
 import React, { FC, memo } from "react";
 import { Song } from "../../../typings";
 import styles from "./index.module.scss";
+import { actions } from "../../../components/Player/store";
+import { useDispatch } from "react-redux";
 
 export interface SongListProps {
   recommendSongs: Song[];
@@ -9,6 +11,11 @@ export interface SongListProps {
 
 const SongList: FC<SongListProps> = (props: SongListProps) => {
   const { recommendSongs } = props;
+  const dispatch = useDispatch();
+  const handleSongClick = (song: Song) => {
+    dispatch(actions.changeCurrentSongAction(song));
+  };
+
   return (
     <div className={styles["songs-wrapper"]}>
       <div className={styles["wrapper-content"]}>
@@ -27,7 +34,12 @@ const SongList: FC<SongListProps> = (props: SongListProps) => {
                       .join(" / ")} - ${songItem.album.name}`}
                   </p>
                 </div>
-                <Button className={styles["play-button"]}>
+                <Button
+                  className={styles["play-button"]}
+                  onClick={() => {
+                    handleSongClick(songItem);
+                  }}
+                >
                   <Icon icon="play"></Icon>
                 </Button>
               </CardContent>

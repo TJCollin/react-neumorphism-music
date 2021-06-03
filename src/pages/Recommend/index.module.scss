@@ -1,23 +1,17 @@
-.recommend-wrapper {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-  flex-direction: column;
-  .title {
-    padding: 10px 10px;
-    font-size: $font-size-normal;
-    color: $color-gray;
-    position: relative;
-    &::before {
-      position: absolute;
-      content: "";
-      width: 2px;
-      height: $font-size-normal;
-      background-color: $color-primary-light;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      border-radius: 1px;
-    }
+.title {
+  padding: 10px 10px;
+  font-size: $font-size-normal;
+  color: $color-gray;
+  position: relative;
+  &::before {
+    position: absolute;
+    content: "";
+    width: 2px;
+    height: $font-size-normal;
+    background-color: $color-primary-light;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 1px;
   }
 }
