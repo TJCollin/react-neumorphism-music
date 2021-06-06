@@ -43,7 +43,7 @@ const Scroll: FC<ScrollProps> = forwardRef(
       bounceRight = true,
       pullDownLoading = false,
       pullUpLoading = false,
-      onScroll = () => {},
+      onScroll,
       onPullDown = () => {},
       onPullUp = () => {},
     },
@@ -51,6 +51,9 @@ const Scroll: FC<ScrollProps> = forwardRef(
   ) => {
     const [bScroll, setBScroll] = useState<BScrollInstance | null>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
+    /**
+     * 初始化scroll
+     */
     useEffect(() => {
       let scroll = new BScroll(scrollRef.current!, {
         click: click,
@@ -71,6 +74,22 @@ const Scroll: FC<ScrollProps> = forwardRef(
         setBScroll(null);
       };
     }, []);
+
+    /**
+     * 监听onScroll
+     */
+    useEffect(() => {
+      if (onScroll && bScroll) {
+        bScroll.on("scroll", onScroll);
+        return () => {
+          bScroll.off("scroll");
+        };
+      }
+    }, [bScroll, onScroll]);
+
+    /**
+     * 刷新scroll
+     */
     useEffect(() => {
       bScroll && bScroll.refresh();
     });

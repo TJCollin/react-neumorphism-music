@@ -51,13 +51,16 @@
     }
   }
   .control {
+    margin-left: 10px;
+
     .control-button {
       border-radius: 50%;
+      color: $color-primary-light;
     }
-    margin-left: 10px;
-    i {
-      font-size: 30px;
-      color: $color-red;
+    .control-list {
+      margin-left: 10px;
+      border-radius: 50%;
+      color: $color-primary-light;
     }
   }
 

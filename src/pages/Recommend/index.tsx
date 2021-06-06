@@ -1,33 +1,33 @@
 import React, { CSSProperties, useEffect, useRef } from "react";
-import React, { CSSProperties, useEffect, useRef } from "react";
 import { Button, Card, CardContent, Icon } from "collin-ui";
 import styles from "./index.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../../store";
 import { actions } from "./store";
 import BScroll from "better-scroll";
+import { forceCheck } from "react-lazyload";
 import { getRecommendSongsAcrion } from "./store/actions";
 import SongList from "../../components/SongList";
 import RecommendList from "./RecommendList";
 import Scroll from "../../components/Scroll";
-import AnotherList from "./List";
-import Toast from "../../components/Toast";
+import Loading from "../../components/loading";
 import { stat } from "fs";
 const { getRecommendListAction } = actions;
 
 const Recommend = () => {
-  const { recommondList, recommendSongs, curSong } = useSelector(
+  const { recommondList, recommendSongs, curIdx, loading } = useSelector(
     (state: StoreState) => {
       return {
         recommondList: state.recommend.recommendList,
         recommendSongs: state.recommend.recommendSongs,
-        curSong: state.player.currentSong,
+        curIdx: state.player.currentIndex,
+        loading: state.recommend.loading,
       };
     }
   );
   const disPatch = useDispatch();
   useEffect(() => {
-    !recommondList.length && disPatch(getRecommendListAction(29));
+    !recommondList.length && disPatch(getRecommendListAction(6));
     !recommendSongs.length && disPatch(getRecommendSongsAcrion());
   }, []);
 
@@ -37,20 +37,20 @@ const Recommend = () => {
     flex: 1,
     overflow: "hidden",
     flexDirection: "column",
-    marginBottom: curSong ? "60px" : 0,
+    marginBottom: curIdx > -1 ? "60px" : 0,
   };
 
   return (
-    <div style={wrapperStyle} ref={songsScrollRef}>
-      <Scroll>
+    <div style={wrapperStyle}>
+      <Scroll ref={songsScrollRef} onScroll={forceCheck}>
         <div>
           <h5 className={styles["title"]}>推荐歌单</h5>
-          {/* <RecommendList songList={recommondList} /> */}
-          <AnotherList songList={recommondList}></AnotherList>
+          <RecommendList songList={recommondList} />
           <h5 className={styles["title"]}>推荐歌曲</h5>
           <SongList recommendSongs={recommendSongs} />
         </div>
       </Scroll>
+      {loading && <Loading />}
     </div>
   );
 };
