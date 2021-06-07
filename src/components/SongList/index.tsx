@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LazyLoad from "react-lazyload";
 import { deepClone } from "../../utils/tools";
 import { StoreState } from "../../store";
+import { formatSingerName } from "../../utils/format";
 
 export interface SongListProps {
   recommendSongs: Song[];
@@ -56,9 +57,9 @@ const SongList: FC<SongListProps> = (props: SongListProps) => {
                 <div className={styles["info"]}>
                   <p className={styles["song-name"]}>{songItem.name}</p>
                   <p className={styles["song-info"]}>
-                    {`${songItem.singers
-                      .map((singer) => singer.name)
-                      .join(" / ")} - ${songItem.album.name}`}
+                    {`${formatSingerName(songItem.singers)} - ${
+                      songItem.album.name
+                    }`}
                   </p>
                 </div>
                 <Button

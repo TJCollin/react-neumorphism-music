@@ -1,5 +1,6 @@
 import { Song } from "../../../typings";
 import {
+  DELETE_SONG,
   SET_CURRENT_INDEX,
   SET_CURRENT_SONG,
   SET_PLAY_STATUS,
@@ -38,6 +39,13 @@ export const changePlayStatusAction = (payload: boolean) => {
 export const changeShowSongListAction = (payload: boolean) => {
   return {
     type: SET_SHOW_SONG_LIST,
+    payload,
+  };
+};
+
+export const deleteSongAction = (payload: number) => {
+  return {
+    type: DELETE_SONG,
     payload,
   };
 };

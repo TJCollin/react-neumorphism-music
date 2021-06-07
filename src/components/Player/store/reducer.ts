@@ -1,6 +1,8 @@
+import { stat } from "fs";
 import produce from "immer";
 import { IAction, Song } from "../../../typings";
 import {
+  DELETE_SONG,
   SET_CURRENT_INDEX,
   SET_CURRENT_SONG,
   SET_PLAY_STATUS,
@@ -28,6 +30,20 @@ const initState: PlayerState = {
   showSongList: false,
 };
 
+/**
+ * 删除指定歌曲
+ * @param state
+ * @param index
+ */
+const deleteSongFromPlayList = (state: PlayerState, index: number): void => {
+  const { songList, currentIndex } = state;
+
+  songList.splice(index, 1);
+  if (index <= currentIndex) {
+    state.currentIndex = state.currentIndex === 0 ? 0 : state.currentIndex--;
+  }
+};
+
 export default produce((state: PlayerState, action: PlayerAction) => {
   const { type, payload } = action;
   switch (type) {
@@ -47,6 +63,9 @@ export default produce((state: PlayerState, action: PlayerAction) => {
       break;
     case SET_PLAY_STATUS:
       state.playStatus = payload as boolean;
+      break;
+    case DELETE_SONG:
+      deleteSongFromPlayList(state, action.payload as number);
       break;
     default:
       break;

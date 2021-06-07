@@ -5,3 +5,5 @@ export const SET_CURRENT_INDEX: string = "SET_CURRENT_INDEX";
 export const SET_SONG_LIST: string = "SET_SONG_LIST";
 export const SET_PLAY_STATUS: string = "SET_PLAY_STATUS";
 export const SET_SHOW_SONG_LIST: string = "SET_SHOW_SONG_LIST";
+// 删除歌曲
+export const DELETE_SONG: string = "DELETE_SONG";

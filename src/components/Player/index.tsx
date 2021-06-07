@@ -1,6 +1,6 @@
 import { Button, Icon } from "collin-ui";
 import React, { FC, memo, useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import { StoreState } from "../../store";
 import { Song } from "../../typings";
@@ -8,6 +8,7 @@ import { formatSongUrl } from "../../utils/format";
 import styles from "./index.module.scss";
 import MiniPlayer from "./MiniPlayer";
 import SongList from "./SongList";
+import { changePlayStatusAction } from "./store/actions";
 
 const Player: FC = () => {
   const { curIdx, songList, status, showSongList } = useSelector(
@@ -18,11 +19,19 @@ const Player: FC = () => {
       showSongList: state.player.showSongList,
     })
   );
+  const dispatch = useDispatch();
 
   const [curSong, setCurSong] = useState<Song | null>(null);
 
   useEffect(() => {
-    setCurSong(songList[curIdx]);
+    if (curIdx < 0 || songList.length < 1) {
+      return;
+    }
+    setCurSong((preSong) => {
+      const newSong = songList[curIdx];
+      return preSong?.id === newSong.id ? preSong : newSong;
+    });
+    dispatch(changePlayStatusAction(true));
   }, [songList, curIdx]);
 
   /**
@@ -54,7 +63,7 @@ const Player: FC = () => {
     <div className="player">
       <MiniPlayer song={songList[curIdx]} playStatus={status} />
       <audio autoPlay ref={audioRef}></audio>
-      {showSongList && <SongList songList={songList}></SongList>}
+      {showSongList && <SongList index={curIdx} songList={songList}></SongList>}
     </div>
   );
 };
