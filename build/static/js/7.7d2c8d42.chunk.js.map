@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/Rank/index.tsx"],"names":["Rank"],"mappings":"0IAAA,uBAKeA,UAHF,WACX,OAAO","file":"static/js/7.7d2c8d42.chunk.js","sourcesContent":["import React from \"react\";\n\nconst Rank = () => {\n  return <div>Rank</div>;\n};\nexport default Rank;\n"],"sourceRoot":""}
