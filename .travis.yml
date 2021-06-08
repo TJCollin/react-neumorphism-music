@@ -4,8 +4,9 @@ node_js:
 cache:
   directories:
   - node_modules
-  
-warnings_are_errors: false
+
+env: 
+  CI: false
  
 before_install:
  - npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/
