@@ -7,7 +7,7 @@ cache:
 en:
  - CI=true
 script:
-  npm run build
+  yarn build
 
 branches:
   only:
