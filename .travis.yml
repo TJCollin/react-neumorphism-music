@@ -6,6 +6,10 @@ cache:
   - node_modules
 en:
  - CI=true
+ 
+before_install:
+ - npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
+ 
 script:
   yarn build
 
