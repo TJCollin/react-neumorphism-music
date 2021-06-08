@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - "stable"
+en:
+ - CI=true
+script:
+ - yarn build
