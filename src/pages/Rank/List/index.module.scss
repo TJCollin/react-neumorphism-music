@@ -1,0 +1,31 @@
+.rankItem-list {
+  padding: 5px;
+  .card {
+    margin-bottom: 15px;
+    width: 100%;
+    .content {
+      display: flex;
+      align-items: center;
+      .img {
+        width: 102px;
+        height: 102px;
+        margin-right: 10px;
+        flex-shrink: 0;
+        img {
+          border-radius: 0.25rem;
+        }
+      }
+      .song-list {
+        flex: 1;
+        overflow: hidden;
+        .song-item {
+          padding-bottom: 5px;
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+  }
+}

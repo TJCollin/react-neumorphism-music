@@ -11,7 +11,6 @@ import SongList from "../../components/SongList";
 import RecommendList from "./RecommendList";
 import Scroll from "../../components/Scroll";
 import Loading from "../../components/loading";
-import { stat } from "fs";
 const { getRecommendListAction } = actions;
 
 const Recommend = () => {
@@ -41,13 +40,16 @@ const Recommend = () => {
   };
 
   return (
-    <div style={wrapperStyle}>
+    <div style={wrapperStyle} className={styles["recomm-wrap"]}>
       <Scroll ref={songsScrollRef} onScroll={forceCheck}>
         <div>
           <h5 className={styles["title"]}>推荐歌单</h5>
           <RecommendList songList={recommondList} />
           <h5 className={styles["title"]}>推荐歌曲</h5>
-          <SongList recommendSongs={recommendSongs} />
+          <SongList
+            recommendSongs={recommendSongs}
+            curId={curIdx > -1 ? recommendSongs[curIdx].id : -1}
+          />
         </div>
       </Scroll>
       {loading && <Loading />}

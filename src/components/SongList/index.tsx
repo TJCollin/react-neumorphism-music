@@ -11,19 +11,16 @@ import { formatSingerName } from "../../utils/format";
 
 export interface SongListProps {
   recommendSongs: Song[];
+  curId: number;
 }
 
 const SongList: FC<SongListProps> = (props: SongListProps) => {
-  const { recommendSongs } = props;
+  const { recommendSongs, curId } = props;
   const dispatch = useDispatch();
   const handleSongClick = (idx: number) => {
     dispatch(actions.changeSongListAction(deepClone(recommendSongs)));
     dispatch(actions.changeCurrentIndexAction(idx));
   };
-  const { curIdx } = useSelector((state: StoreState) => ({
-    songList: state.player.songList,
-    curIdx: state.player.currentIndex,
-  }));
 
   return (
     <div className={styles["songs-wrapper"]}>
@@ -68,7 +65,9 @@ const SongList: FC<SongListProps> = (props: SongListProps) => {
                     handleSongClick(idx);
                   }}
                 >
-                  <Icon icon={idx === curIdx ? "podcast" : "play"}></Icon>
+                  <Icon
+                    icon={songItem.id === curId ? "podcast" : "play"}
+                  ></Icon>
                 </Button>
               </CardContent>
             </Card>

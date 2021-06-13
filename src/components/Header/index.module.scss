@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   height: 50px;
+  flex-shrink: 0;
   .title {
     color: $color-default;
     font-size: $font-size-bigger;

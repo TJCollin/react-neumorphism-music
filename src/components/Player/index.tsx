@@ -5,18 +5,20 @@ import { CSSTransition } from "react-transition-group";
 import { StoreState } from "../../store";
 import { Song } from "../../typings";
 import { formatSongUrl } from "../../utils/format";
+import FullscreenPlayer from "./FullscreenPlayer";
 import styles from "./index.module.scss";
 import MiniPlayer from "./MiniPlayer";
 import SongList from "./SongList";
 import { changePlayStatusAction } from "./store/actions";
 
 const Player: FC = () => {
-  const { curIdx, songList, status, showSongList } = useSelector(
+  const { curIdx, songList, status, showSongList, fullscreen } = useSelector(
     (state: StoreState) => ({
       curIdx: state.player.currentIndex,
       songList: state.player.songList,
       status: state.player.playStatus,
       showSongList: state.player.showSongList,
+      fullscreen: state.player.fullScreen,
     })
   );
   const dispatch = useDispatch();
@@ -31,7 +33,6 @@ const Player: FC = () => {
       const newSong = songList[curIdx];
       return preSong?.id === newSong.id ? preSong : newSong;
     });
-    dispatch(changePlayStatusAction(true));
   }, [songList, curIdx]);
 
   /**
@@ -41,6 +42,7 @@ const Player: FC = () => {
     const audioDom = audioRef.current;
     if (curSong && audioDom) {
       audioDom.src = formatSongUrl(curSong.id);
+      dispatch(changePlayStatusAction(true));
     }
   }, [curSong]);
 
@@ -64,6 +66,14 @@ const Player: FC = () => {
       <MiniPlayer song={songList[curIdx]} playStatus={status} />
       <audio autoPlay ref={audioRef}></audio>
       {showSongList && <SongList index={curIdx} songList={songList}></SongList>}
+      {curSong && (
+        <FullscreenPlayer
+          status={status}
+          curIdx={curIdx}
+          fullscreen={fullscreen}
+          curSong={curSong}
+        ></FullscreenPlayer>
+      )}
     </div>
   );
 };

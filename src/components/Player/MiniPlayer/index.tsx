@@ -1,5 +1,12 @@
 import { Button, Icon } from "collin-ui";
-import React, { FC, memo, useEffect, useState } from "react";
+import React, {
+  FC,
+  memo,
+  MouseEvent,
+  MouseEventHandler,
+  useEffect,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import { StoreState } from "../../../store";
@@ -7,6 +14,7 @@ import { Song } from "../../../typings";
 import {
   changePlayStatusAction,
   changeShowSongListAction,
+  changeFullscreenAction,
 } from "../store/actions";
 import styles from "./index.module.scss";
 import classNames from "classnames";
@@ -19,13 +27,20 @@ export interface MiniPlayerProps {
 const MiniPlayer: FC<MiniPlayerProps> = (props) => {
   const { song, playStatus } = props;
   const dispatch = useDispatch();
-  const handlePlayButtonClick = () => {
+  const handlePlayButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     console.log("play", !playStatus);
     dispatch(changePlayStatusAction(!playStatus));
   };
 
-  const handleListButtonClick = () => {
+  const handleListButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     dispatch(changeShowSongListAction(true));
+  };
+
+  const handlePlayerClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    dispatch(changeFullscreenAction(true));
   };
 
   return (
@@ -35,7 +50,7 @@ const MiniPlayer: FC<MiniPlayerProps> = (props) => {
       classNames="mini"
       unmountOnExit
     >
-      <div className={styles["mini-player"]}>
+      <div className={styles["mini-player"]} onClick={handlePlayerClick}>
         <div
           className={classNames(
             styles["img-wrap"],

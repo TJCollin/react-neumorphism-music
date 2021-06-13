@@ -7,3 +7,4 @@ export const SET_PLAY_STATUS: string = "SET_PLAY_STATUS";
 export const SET_SHOW_SONG_LIST: string = "SET_SHOW_SONG_LIST";
 // 删除歌曲
 export const DELETE_SONG: string = "DELETE_SONG";
+export const SET_FULLSCREEN: string = "SET_FULLSCREEN";

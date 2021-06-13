@@ -19,7 +19,7 @@
     "axios": "^0.21.1",
     "better-scroll": "^2.3.1",
     "classnames": "^2.3.1",
-    "collin-ui": "^0.2.12",
+    "collin-ui": "^0.2.13",
     "concurrently": "^6.2.0",
     "cross-env": "^7.0.3",
     "fastclick": "^1.0.6",
@@ -39,8 +39,8 @@
   },
   "scripts": {
     "start:server": "cd NeteaseCloudMusicApi && cross-env PORT=3300 node app.js",
-    "start:react": "react-app-rewired start",
-    "start": "concurrently npm:start:*",
+    "start": "react-app-rewired start",
+    "start:all": "concurrently npm:start:*",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
