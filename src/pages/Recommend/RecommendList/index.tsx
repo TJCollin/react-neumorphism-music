@@ -4,6 +4,7 @@ import { Recomm } from "../../../typings";
 import styles from "./index.module.scss";
 import LazyLoad, { forceCheck } from "react-lazyload";
 import Scroll from "../../../components/Scroll";
+import { Link } from "react-router-dom";
 export interface RecommendListProps {
   songList: Recomm[];
 }
@@ -17,7 +18,11 @@ const RecommendList: FC<RecommendListProps> = (props) => {
         <div className={styles["wrapper-content"]}>
           {songList.map((item) => {
             return (
-              <div className={styles["card-wrapper"]} key={item.id}>
+              <Link
+                to={`/album/${item.id}`}
+                className={styles["card-wrapper"]}
+                key={item.id}
+              >
                 <Card className={styles["img-card"]}>
                   <LazyLoad
                     debounce={500}
@@ -43,7 +48,7 @@ const RecommendList: FC<RecommendListProps> = (props) => {
                   </LazyLoad>
                 </Card>
                 <p className={styles["desc"]}>{item.name}</p>
-              </div>
+              </Link>
             );
           })}
         </div>

@@ -5,6 +5,7 @@ import React, {
   memo,
   ReactNode,
   useEffect,
+  useImperativeHandle,
   useRef,
   useState,
 } from "react";
@@ -29,6 +30,11 @@ export interface ScrollProps {
   onPullDown?: () => void;
   onPullUp?: () => void;
   children?: ReactNode;
+}
+
+export interface ScrollInstance {
+  refresh: () => void;
+  getBScroll: () => BScrollInstance | undefined;
 }
 
 const Scroll: FC<ScrollProps> = forwardRef(
@@ -74,6 +80,25 @@ const Scroll: FC<ScrollProps> = forwardRef(
         setBScroll(null);
       };
     }, []);
+
+    /**
+     * 通过 ref 暴露组件方法
+     */
+    useImperativeHandle(ref, (): ScrollInstance => {
+      return {
+        refresh() {
+          if (bScroll) {
+            bScroll.refresh();
+            bScroll.scrollTo(0, 0);
+          }
+        },
+        getBScroll() {
+          if (bScroll) {
+            return bScroll;
+          }
+        },
+      };
+    });
 
     /**
      * 监听onScroll

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { alphaTypes } from "../../apis/data";
 import { StoreState } from "../../store";
@@ -6,6 +6,8 @@ import styles from "./index.module.scss";
 import { getSingerListAction } from "./store/actions";
 import Tabs from "./Tabs";
 import SingerList from "./List";
+import Scroll, { ScrollInstance } from "../../components/Scroll";
+import { forceCheck } from "react-lazyload";
 
 const Singers = () => {
   const { singerList, curInx } = useSelector((state: StoreState) => ({
@@ -20,6 +22,19 @@ const Singers = () => {
   useEffect((): void => {
     dispatch(getSingerListAction());
   }, []);
+
+  const [curType, setCurType] = useState<string>("");
+  const scrollRef = useRef<ScrollInstance>(null);
+
+  /**
+   * 监听 Tab 项点击
+   */
+  const onItemClick = useCallback((type: string) => {
+    setCurType(type);
+    dispatch(getSingerListAction(type));
+    scrollRef.current?.refresh();
+  }, []);
+
   const wrapperStyle = {
     flex: 1,
     overflow: "hidden",
@@ -28,10 +43,16 @@ const Singers = () => {
   return (
     <div className={styles["singers-wrap"]}>
       <div className={styles["tabs-wrap"]}>
-        <Tabs tabsData={alphaTypes}></Tabs>
+        <Tabs
+          tabsData={alphaTypes}
+          curType={curType}
+          onItemClick={onItemClick}
+        ></Tabs>
       </div>
       <div style={wrapperStyle}>
-        <SingerList listData={singerList}></SingerList>
+        <Scroll ref={scrollRef} onScroll={forceCheck}>
+          <SingerList listData={singerList}></SingerList>
+        </Scroll>
       </div>
     </div>
   );
