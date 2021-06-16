@@ -1,5 +1,14 @@
 import { Button, Icon } from "collin-ui";
-import React, { FC, memo, useEffect, useRef, useState } from "react";
+import React, {
+  BaseSyntheticEvent,
+  FC,
+  memo,
+  ReactEventHandler,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import { StoreState } from "../../store";
@@ -24,15 +33,48 @@ const Player: FC = () => {
   const dispatch = useDispatch();
 
   const [curSong, setCurSong] = useState<Song | null>(null);
+  const [currentTime, setCurrentTime] = useState<number>(0),
+    [duration, setDuration] = useState<number>(0),
+    [percent, setPercent] = useState<number>(0);
 
+  /**
+   * 更新当前时间
+   * @param {Event} e
+   */
+  const handleUpdateTime: ReactEventHandler<HTMLAudioElement> = (
+    e: BaseSyntheticEvent
+  ): void => {
+    setCurrentTime(e.target.currentTime);
+    const per: number = isNaN(e.target.currentTime / duration)
+      ? 0
+      : (currentTime / duration) * 100;
+    console.log(e.target.currentTime, duration, per);
+    setPercent(per);
+  };
+
+  /**
+   * 控制进度条
+   * @param {Number} 进度条百分比
+   */
+  const handleProgressChange = useCallback(
+    (percent: number): void => {
+      const newTime: number = percent * duration;
+      setCurrentTime(newTime);
+      audioRef.current!.currentTime = newTime;
+      !status && changePlayStatusAction(true);
+    },
+    [duration]
+  );
   useEffect(() => {
     if (curIdx < 0 || songList.length < 1) {
       return;
     }
+    const newSong = songList[curIdx];
     setCurSong((preSong) => {
-      const newSong = songList[curIdx];
       return preSong?.id === newSong.id ? preSong : newSong;
     });
+    setCurrentTime(0);
+    setDuration(newSong.dt / 1000 || 0);
   }, [songList, curIdx]);
 
   /**
@@ -64,7 +106,7 @@ const Player: FC = () => {
   return (
     <div className="player">
       <MiniPlayer song={songList[curIdx]} playStatus={status} />
-      <audio autoPlay ref={audioRef}></audio>
+      <audio autoPlay ref={audioRef} onTimeUpdate={handleUpdateTime}></audio>
       {showSongList && <SongList index={curIdx} songList={songList}></SongList>}
       {curSong && (
         <FullscreenPlayer
@@ -72,6 +114,7 @@ const Player: FC = () => {
           curIdx={curIdx}
           fullscreen={fullscreen}
           curSong={curSong}
+          percent={percent}
         ></FullscreenPlayer>
       )}
     </div>

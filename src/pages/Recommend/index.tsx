@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useRef } from "react";
+import React, { CSSProperties, FC, useEffect, useRef } from "react";
 import { Button, Card, CardContent, Icon } from "collin-ui";
 import styles from "./index.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,11 +9,12 @@ import { forceCheck } from "react-lazyload";
 import { getRecommendSongsAcrion } from "./store/actions";
 import SongList from "../../components/SongList";
 import RecommendList from "./RecommendList";
-import Scroll from "../../components/Scroll";
+import Scroll, { ScrollInstance } from "../../components/Scroll";
 import Loading from "../../components/loading";
+import { renderRoutes, RouteConfigComponentProps } from "react-router-config";
 const { getRecommendListAction } = actions;
 
-const Recommend = () => {
+const Recommend: FC<RouteConfigComponentProps> = ({ route }) => {
   const { recommondList, recommendSongs, curIdx, loading } = useSelector(
     (state: StoreState) => {
       return {
@@ -38,13 +39,16 @@ const Recommend = () => {
     flexDirection: "column",
     marginBottom: curIdx > -1 ? "60px" : 0,
   };
+  const scrollRef = useRef<ScrollInstance>(null);
 
   return (
     <div style={wrapperStyle} className={styles["recomm-wrap"]}>
       <Scroll ref={songsScrollRef} onScroll={forceCheck}>
         <div>
           <h5 className={styles["title"]}>推荐歌单</h5>
-          <RecommendList songList={recommondList} />
+          <Scroll direction="horizontal" onScroll={forceCheck} ref={scrollRef}>
+            <RecommendList songList={recommondList} />
+          </Scroll>
           <h5 className={styles["title"]}>推荐歌曲</h5>
           <SongList
             recommendSongs={recommendSongs}
@@ -52,6 +56,7 @@ const Recommend = () => {
           />
         </div>
       </Scroll>
+      {renderRoutes(route?.routes)}
       {loading && <Loading />}
     </div>
   );

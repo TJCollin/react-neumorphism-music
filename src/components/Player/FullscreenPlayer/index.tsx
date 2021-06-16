@@ -20,14 +20,15 @@ export interface FullscreenPlayerProps {
   curSong: Song;
   status: boolean;
   curIdx: number;
+  percent: number;
 }
 
 const FullscreenPlayer: FC<FullscreenPlayerProps> = ({
   fullscreen,
   curSong,
   curIdx,
-
   status,
+  percent,
 }) => {
   const dispatch = useDispatch();
   const handleToggleFullscreen = () => {
@@ -88,7 +89,7 @@ const FullscreenPlayer: FC<FullscreenPlayerProps> = ({
           </Card>
         </div>
         <div className={styles["controller"]}>
-          <ProgressBar percent={10}></ProgressBar>
+          <ProgressBar percent={percent}></ProgressBar>
           <div className={styles["button-group"]}>
             <Button
               className={styles["control-button"]}
