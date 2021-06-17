@@ -1,4 +1,4 @@
-import BScroll, { BScrollInstance } from "better-scroll";
+import BScroll, { BScrollInstance, Options } from "better-scroll";
 import React, {
   FC,
   forwardRef,
@@ -16,7 +16,7 @@ export interface Position {
   y: number;
 }
 
-export interface ScrollProps {
+export interface ScrollProps extends Options {
   ref?: any;
   direction?: "horizontal" | "vertical";
   click?: boolean;
@@ -52,6 +52,7 @@ const Scroll: FC<ScrollProps> = forwardRef(
       onScroll,
       onPullDown = () => {},
       onPullUp = () => {},
+      ...restProps
     },
     ref
   ) => {
@@ -73,6 +74,7 @@ const Scroll: FC<ScrollProps> = forwardRef(
           left: bounceLeft,
           right: bounceRight,
         },
+        ...restProps,
       });
 
       setBScroll(scroll);

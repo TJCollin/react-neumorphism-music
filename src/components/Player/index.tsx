@@ -18,7 +18,12 @@ import FullscreenPlayer from "./FullscreenPlayer";
 import styles from "./index.module.scss";
 import MiniPlayer from "./MiniPlayer";
 import SongList from "./SongList";
-import { changePlayStatusAction } from "./store/actions";
+import {
+  changeCurrentIndexAction,
+  changePlayStatusAction,
+} from "./store/actions";
+
+export type handleProgressChange = (percent: number) => void;
 
 const Player: FC = () => {
   const { curIdx, songList, status, showSongList, fullscreen } = useSelector(
@@ -48,7 +53,6 @@ const Player: FC = () => {
     const per: number = isNaN(e.target.currentTime / duration)
       ? 0
       : (currentTime / duration) * 100;
-    console.log(e.target.currentTime, duration, per);
     setPercent(per);
   };
 
@@ -56,8 +60,9 @@ const Player: FC = () => {
    * 控制进度条
    * @param {Number} 进度条百分比
    */
-  const handleProgressChange = useCallback(
+  const handleProgressChange: handleProgressChange = useCallback(
     (percent: number): void => {
+      console.log(percent);
       const newTime: number = percent * duration;
       setCurrentTime(newTime);
       audioRef.current!.currentTime = newTime;
@@ -102,14 +107,25 @@ const Player: FC = () => {
     }
   }, [status]);
 
+  const handleEnded = () => {
+    console.log("end");
+    dispatch(changeCurrentIndexAction(curIdx + 1));
+  };
+
   const audioRef = useRef<HTMLAudioElement>(null);
   return (
     <div className="player">
       <MiniPlayer song={songList[curIdx]} playStatus={status} />
-      <audio autoPlay ref={audioRef} onTimeUpdate={handleUpdateTime}></audio>
+      <audio
+        autoPlay
+        ref={audioRef}
+        onTimeUpdate={handleUpdateTime}
+        onEnded={handleEnded}
+      ></audio>
       {showSongList && <SongList index={curIdx} songList={songList}></SongList>}
       {curSong && (
         <FullscreenPlayer
+          onProgressChange={handleProgressChange}
           status={status}
           curIdx={curIdx}
           fullscreen={fullscreen}

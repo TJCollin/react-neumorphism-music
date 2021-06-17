@@ -39,14 +39,13 @@ const Recommend: FC<RouteConfigComponentProps> = ({ route }) => {
     flexDirection: "column",
     marginBottom: curIdx > -1 ? "60px" : 0,
   };
-  const scrollRef = useRef<ScrollInstance>(null);
 
   return (
     <div style={wrapperStyle} className={styles["recomm-wrap"]}>
       <Scroll ref={songsScrollRef} onScroll={forceCheck}>
         <div>
           <h5 className={styles["title"]}>推荐歌单</h5>
-          <Scroll direction="horizontal" onScroll={forceCheck} ref={scrollRef}>
+          <Scroll direction="horizontal" onScroll={forceCheck} stopPropagation>
             <RecommendList songList={recommondList} />
           </Scroll>
           <h5 className={styles["title"]}>推荐歌曲</h5>

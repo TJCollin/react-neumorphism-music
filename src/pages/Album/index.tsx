@@ -1,5 +1,6 @@
 import { Card, CardContent, Icon } from "collin-ui";
 import React, { FC, memo, useEffect, useState } from "react";
+import { forceCheck } from "react-lazyload";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { CSSTransition } from "react-transition-group";
@@ -65,6 +66,7 @@ const Album: FC = () => {
       unmountOnExit
       classNames="fly"
       onExited={history.goBack}
+      appear
     >
       {
         <div className={styles["album-wrap"]}>
@@ -75,7 +77,7 @@ const Album: FC = () => {
           {!loading && (
             <div style={wrapperStyle}>
               {albumDetail && (
-                <Scroll>
+                <Scroll onScroll={forceCheck}>
                   <div>
                     <div className={styles["detail-wrap"]}>
                       <Card className={styles["img-card"]}>

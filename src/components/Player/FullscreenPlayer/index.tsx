@@ -1,19 +1,14 @@
-import { Button, Card, CardContent, Icon, ProgressBar } from "collin-ui";
-import React, { FC, memo } from "react";
+import { Icon } from "collin-ui";
+import { FC, memo, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { CSSTransition } from "react-transition-group";
-import { toggleToastAction } from "../../../store/actions";
 import { Song } from "../../../typings";
 import { formatSingerName } from "../../../utils/format";
-import {
-  changeCurrentIndexAction,
-  changeFullscreenAction,
-  changePlayStatusAction,
-  changeShowSongListAction,
-} from "../store/actions";
+import { changeFullscreenAction } from "../store/actions";
 import styles from "./index.module.scss";
-import LazyLoad from "react-lazyload";
-import classNames from "classnames";
+import CD from "./CD";
+import Controller from "./Controller";
+import { handleProgressChange } from "..";
 
 export interface FullscreenPlayerProps {
   fullscreen: boolean;
@@ -21,6 +16,7 @@ export interface FullscreenPlayerProps {
   status: boolean;
   curIdx: number;
   percent: number;
+  onProgressChange: handleProgressChange;
 }
 
 const FullscreenPlayer: FC<FullscreenPlayerProps> = ({
@@ -29,26 +25,13 @@ const FullscreenPlayer: FC<FullscreenPlayerProps> = ({
   curIdx,
   status,
   percent,
+  onProgressChange,
 }) => {
   const dispatch = useDispatch();
   const handleToggleFullscreen = () => {
     dispatch(changeFullscreenAction(false));
   };
-  const handleListButtonClick = () => {
-    dispatch(changeShowSongListAction(true));
-  };
-  const handlePlayButtonClick = () => {
-    dispatch(changePlayStatusAction(!status));
-  };
-  const handleRecycleClick = () => {
-    dispatch(toggleToastAction(true, "功能暂未开发~"));
-  };
-  const handleNextClick = () => {
-    dispatch(changeCurrentIndexAction(curIdx + 1));
-  };
-  const handlePreClick = () => {
-    dispatch(changeCurrentIndexAction(curIdx - 1));
-  };
+
   return (
     <CSSTransition
       classNames="full"
@@ -68,59 +51,13 @@ const FullscreenPlayer: FC<FullscreenPlayerProps> = ({
             </p>
           </div>
         </div>
-        <div className={classNames(styles["cd"], !status && styles["pause"])}>
-          <Card className={styles["img-card"]}>
-            <CardContent>
-              <LazyLoad
-                debounce={500}
-                placeholder={
-                  <img
-                    src={require("../../../assets/images/music.png").default}
-                    alt="music"
-                    width="50"
-                    height="100%"
-                    className={styles["img"]}
-                  />
-                }
-              >
-                <img src={curSong.album.picUrl} alt="" />
-              </LazyLoad>
-            </CardContent>
-          </Card>
-        </div>
-        <div className={styles["controller"]}>
-          <ProgressBar percent={percent}></ProgressBar>
-          <div className={styles["button-group"]}>
-            <Button
-              className={styles["control-button"]}
-              onClick={handleRecycleClick}
-            >
-              <Icon icon="sync"></Icon>
-            </Button>
-            <Button
-              className={styles["control-button"]}
-              onClick={handlePreClick}
-            >
-              <Icon icon="backward"></Icon>
-            </Button>
-            <Button
-              size="lg"
-              className={styles["control-button"]}
-              onClick={handlePlayButtonClick}
-            >
-              <Icon icon={status ? "pause" : "play"}></Icon>
-            </Button>
-            <Button
-              className={styles["control-button"]}
-              onClick={handleNextClick}
-            >
-              <Icon icon="forward"></Icon>
-            </Button>
-            <Button className={styles["control-button"]}>
-              <Icon icon="list-ul" onClick={handleListButtonClick}></Icon>
-            </Button>
-          </div>
-        </div>
+        <CD curSong={curSong} status={status}></CD>
+        <Controller
+          percent={percent}
+          status={status}
+          curIdx={curIdx}
+          onProgressChange={onProgressChange}
+        ></Controller>
       </div>
     </CSSTransition>
   );

@@ -3629,10 +3629,10 @@ collection-visit@^1.0.0:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
 
-collin-ui@^0.2.13:
-  version "0.2.13"
-  resolved "https://registry.yarnpkg.com/collin-ui/-/collin-ui-0.2.13.tgz#f0749e928c17a69f39a9013e0b9233c7a4acae43"
-  integrity sha512-HLx9h//+U2YH8qqYyYId8Z1c3yjxvOGxSaPN1+RiGvLJe3BpLq0eH2fOjOypnJvsSRuVEr9lPPa+uxf0N/ttZA==
+collin-ui@^0.2.15:
+  version "0.2.15"
+  resolved "https://registry.yarnpkg.com/collin-ui/-/collin-ui-0.2.15.tgz#9f189cd74fdfa2bb6ccbd53ef92bdfdd1ad5bb92"
+  integrity sha512-QMt5hXShStTupBSNARV5fqx3g8iaNM0tNqxcirdsZVNrltGj2yi7CCCUgu22YSCv9J+Q0WeIoAO74d5YBUAqdQ==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^1.2.35"
     "@fortawesome/free-brands-svg-icons" "^5.15.3"
