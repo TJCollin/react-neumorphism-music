@@ -6,7 +6,7 @@ import { useHistory, useParams } from "react-router";
 import { CSSTransition } from "react-transition-group";
 import Scroll from "../../components/Scroll";
 import SongList, { SongListInstance } from "../../components/SongList";
-import Loading from "../../components/Loading";
+import Loading from "../../components/loading";
 import { StoreState } from "../../store";
 import styles from "./index.module.scss";
 import { getSingerDetailAction } from "./store/actions";
