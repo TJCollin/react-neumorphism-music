@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { alphaTypes } from "../../apis/data";
 import { StoreState } from "../../store";
@@ -8,8 +8,9 @@ import Tabs from "./Tabs";
 import SingerList from "./List";
 import Scroll, { ScrollInstance } from "../../components/Scroll";
 import { forceCheck } from "react-lazyload";
+import { renderRoutes, RouteConfigComponentProps } from "react-router-config";
 
-const Singers = () => {
+const Singers: FC<RouteConfigComponentProps> = ({ route }) => {
   const { singerList, curInx } = useSelector((state: StoreState) => ({
     singerList: state.singers.singerList,
     curInx: state.player.currentIndex,
@@ -54,6 +55,7 @@ const Singers = () => {
           <SingerList listData={singerList}></SingerList>
         </Scroll>
       </div>
+      {renderRoutes(route?.routes)}
     </div>
   );
 };

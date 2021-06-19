@@ -4,6 +4,7 @@ import Scroll from "../../../components/Scroll";
 import styles from "./index.module.scss";
 import LazyLoad from "react-lazyload";
 import { RankItem, RankTrack } from "../typing";
+import { Link } from "react-router-dom";
 export interface RankListProps {
   listData: RankItem[];
 }
@@ -43,12 +44,14 @@ const RankList: FC<RankListProps> = ({ listData }) => {
                 <ul className={styles["song-list"]}>
                   {rankItem.tracks &&
                     rankItem.tracks.map((cur: RankTrack, index: number) => (
-                      <li className={styles["song-item"]} key={index}>
-                        <span>{index + 1}.</span>
-                        <span>{cur.first}</span>
-                        <span> - </span>
-                        <span>{cur.second}</span>
-                      </li>
+                      <Link to={`/rank/${rankItem.id}`}>
+                        <li className={styles["song-item"]} key={index}>
+                          <span>{index + 1}.</span>
+                          <span>{cur.first}</span>
+                          <span> - </span>
+                          <span>{cur.second}</span>
+                        </li>
+                      </Link>
                     ))}
                 </ul>
               </CardContent>

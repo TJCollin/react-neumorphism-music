@@ -28,7 +28,7 @@ const initState: PlayerState = {
   currentSong: null,
   songList: [],
   currentIndex: -1,
-  playStatus: true,
+  playStatus: false,
   showSongList: false,
   fullScreen: false,
 };

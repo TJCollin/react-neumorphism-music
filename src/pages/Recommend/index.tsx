@@ -1,16 +1,14 @@
-import React, { CSSProperties, FC, useEffect, useRef } from "react";
-import { Button, Card, CardContent, Icon } from "collin-ui";
+import { CSSProperties, FC, useEffect, useRef } from "react";
 import styles from "./index.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../../store";
 import { actions } from "./store";
-import BScroll from "better-scroll";
 import { forceCheck } from "react-lazyload";
 import { getRecommendSongsAcrion } from "./store/actions";
 import SongList from "../../components/SongList";
 import RecommendList from "./RecommendList";
-import Scroll, { ScrollInstance } from "../../components/Scroll";
-import Loading from "../../components/loading";
+import Scroll from "../../components/Scroll";
+import Loading from "../../components/Loading";
 import { renderRoutes, RouteConfigComponentProps } from "react-router-config";
 const { getRecommendListAction } = actions;
 

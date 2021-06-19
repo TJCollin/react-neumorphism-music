@@ -10,7 +10,9 @@ import { reducer as singersReducer } from "../pages/Singers/store";
 import { RankState } from "../pages/Rank/store/reducer";
 import { reducer as rankReducer } from "../pages/Rank/store";
 import { AlbumState } from "../pages/Album/store/reducer";
-import { reducer as albumDetail } from "../pages/Album/store";
+import { reducer as albumReducer } from "../pages/Album/store";
+import { SingerState } from "../pages/Singer/store/reducer";
+import { reducer as singerReducer } from "../pages/Singer/store";
 
 const composeEnhancers =
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -22,6 +24,7 @@ export interface StoreState {
   singers: SingersState;
   rank: RankState;
   album: AlbumState;
+  singer: SingerState;
 }
 
 const reducers = combineReducers({
@@ -30,7 +33,8 @@ const reducers = combineReducers({
   player: playerReducer,
   singers: singersReducer,
   rank: rankReducer,
-  album: albumDetail,
+  album: albumReducer,
+  singer: singerReducer,
 });
 
 const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));

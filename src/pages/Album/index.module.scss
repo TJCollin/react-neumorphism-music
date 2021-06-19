@@ -40,9 +40,12 @@
   .detail-wrap {
     display: flex;
     padding: 15px;
+    width: 100%;
     align-items: center;
     .img-card {
       border-radius: 0.8rem;
+      width: 100%;
+
       .content {
         display: flex;
         align-items: center;

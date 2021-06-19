@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FC } from "react";
 import styles from "./index.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../../store";
 import RankList from "./List";
 import { getRankListAction } from "./store/actions";
-const Rank = () => {
-  const { globalList, curInx, officialList } = useSelector(
+import Loading from "../../components/Loading";
+import { renderRoutes, RouteConfigComponentProps } from "react-router-config";
+const Rank: FC<RouteConfigComponentProps> = ({ route }) => {
+  const { globalList, curInx, officialList, loading } = useSelector(
     (state: StoreState) => ({
       curInx: state.player.currentIndex,
       globalList: state.rank.globalList,
       officialList: state.rank.officialList,
+      loading: state.rank.loading,
     })
   );
   const dispatch = useDispatch();
@@ -26,6 +29,8 @@ const Rank = () => {
   return (
     <div className={styles["rank-wrap"]} style={wrapperStyle}>
       <RankList listData={officialList}></RankList>
+      {renderRoutes(route?.routes)}
+      {loading && <Loading></Loading>}
     </div>
   );
 };
