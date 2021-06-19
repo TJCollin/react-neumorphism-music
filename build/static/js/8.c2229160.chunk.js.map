@@ -1,1 +1,0 @@
-{"version":3,"sources":["pages/Singers/index.tsx"],"names":["Singers"],"mappings":"0IAAA,uBAKeA,UAHC,WACd,OAAO","file":"static/js/8.c2229160.chunk.js","sourcesContent":["import React from \"react\";\n\nconst Singers = () => {\n  return <div>Singers</div>;\n};\nexport default Singers;\n"],"sourceRoot":""}

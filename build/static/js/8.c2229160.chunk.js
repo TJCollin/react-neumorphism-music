@@ -1,2 +1,0 @@
-(this["webpackJsonpreact-neumorphism-music"]=this["webpackJsonpreact-neumorphism-music"]||[]).push([[8],{108:function(s,e,i){"use strict";i.r(e);i(0);var c=i(9);e.default=function(){return Object(c.jsx)("div",{children:"Singers"})}}}]);
-//# sourceMappingURL=8.c2229160.chunk.js.map

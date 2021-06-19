@@ -1,2 +1,0 @@
-export const SET_RECOMMEND_LIST: string = "SET_RECOMMEND_LIST";
-export const SET_RECOMMEND_SONGS: string = "SET_RECOMMEND_SONGS";
