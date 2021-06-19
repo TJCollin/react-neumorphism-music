@@ -1,14 +1,27 @@
 language: node_js
 node_js:
-  - "stable"
+  - 14
 cache:
   directories:
-  - node_modules
-en:
- - CI=true
-script:
-  npm run build
+    - node_modules
+
+env:
+  CI: false
+
+before_install:
+  - npm config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/
+
+script: npm run build
 
 branches:
   only:
-  - gh-pages
+    - main
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  local_dir: build
+  on:
+    branch: gh-pages
