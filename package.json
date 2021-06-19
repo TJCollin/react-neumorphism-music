@@ -2,7 +2,7 @@
   "name": "react-neumorphism-music",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://tjcollin.github.io/react-neumorphism-music/build/",
+  "homepage": "https://tjcollin.github.io/react-neumorphism-music/",
   "dependencies": {
     "@mdi/js": "^5.9.55",
     "@mdi/react": "^1.5.0",
@@ -45,6 +45,7 @@
     "start": "react-app-rewired start",
     "start:all": "concurrently npm:start:*",
     "build": "npm run clean && react-app-rewired build",
+    "deploy": "gh-pages -d build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
