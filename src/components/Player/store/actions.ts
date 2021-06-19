@@ -3,6 +3,7 @@ import {
   DELETE_SONG,
   SET_CURRENT_INDEX,
   SET_CURRENT_SONG,
+  SET_FULLSCREEN,
   SET_PLAY_STATUS,
   SET_SHOW_SONG_LIST,
   SET_SONG_LIST,
@@ -46,6 +47,12 @@ export const changeShowSongListAction = (payload: boolean) => {
 export const deleteSongAction = (payload: number) => {
   return {
     type: DELETE_SONG,
+    payload,
+  };
+};
+export const changeFullscreenAction = (payload: boolean) => {
+  return {
+    type: SET_FULLSCREEN,
     payload,
   };
 };

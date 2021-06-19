@@ -6,7 +6,7 @@ module.exports = override(
       rule.use.push({
         loader: require.resolve("sass-resources-loader"),
         options: {
-          resources: "./src/styles/variable.scss",
+          resources: ["./src/styles/variable.scss", "./src/styles/mixin.scss"],
         },
       });
     }

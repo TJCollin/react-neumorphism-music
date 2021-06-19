@@ -1,0 +1,10 @@
+.singers-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  .tabs-wrap {
+    width: 100%;
+    height: 50px;
+  }
+}

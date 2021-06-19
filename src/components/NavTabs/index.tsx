@@ -1,5 +1,5 @@
-import React, { FC, memo, useState } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import React, { FC, memo } from "react";
+import { NavLink } from "react-router-dom";
 
 import styles from "./index.module.scss";
 

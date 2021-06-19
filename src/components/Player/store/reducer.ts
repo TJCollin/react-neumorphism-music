@@ -5,6 +5,7 @@ import {
   DELETE_SONG,
   SET_CURRENT_INDEX,
   SET_CURRENT_SONG,
+  SET_FULLSCREEN,
   SET_PLAY_STATUS,
   SET_SHOW_SONG_LIST,
   SET_SONG_LIST,
@@ -16,6 +17,7 @@ export interface PlayerState {
   currentIndex: number;
   playStatus: boolean;
   showSongList: boolean;
+  fullScreen: boolean;
 }
 
 export interface PlayerAction extends IAction {
@@ -26,8 +28,9 @@ const initState: PlayerState = {
   currentSong: null,
   songList: [],
   currentIndex: -1,
-  playStatus: true,
+  playStatus: false,
   showSongList: false,
+  fullScreen: false,
 };
 
 /**
@@ -40,7 +43,7 @@ const deleteSongFromPlayList = (state: PlayerState, index: number): void => {
 
   songList.splice(index, 1);
   if (index <= currentIndex) {
-    state.currentIndex = state.currentIndex === 0 ? 0 : state.currentIndex--;
+    state.currentIndex = state.currentIndex === 0 ? 0 : state.currentIndex - 1;
   }
 };
 
@@ -51,7 +54,13 @@ export default produce((state: PlayerState, action: PlayerAction) => {
       state.currentSong = payload as Song;
       break;
     case SET_CURRENT_INDEX:
-      state.currentIndex = payload as number;
+      let idx = payload as number;
+      if (idx < 0) {
+        idx = state.songList.length - 1;
+      } else if (idx >= state.songList.length) {
+        idx = 0;
+      }
+      state.currentIndex = idx;
       state.playStatus = true;
 
       break;
@@ -66,6 +75,9 @@ export default produce((state: PlayerState, action: PlayerAction) => {
       break;
     case DELETE_SONG:
       deleteSongFromPlayList(state, action.payload as number);
+      break;
+    case SET_FULLSCREEN:
+      state.fullScreen = payload as boolean;
       break;
     default:
       break;

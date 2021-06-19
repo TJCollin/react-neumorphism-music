@@ -1,32 +1,46 @@
 import { Button, Card, CardContent, Icon } from "collin-ui";
-import React, { FC, memo } from "react";
+import React, { FC, forwardRef, memo, useImperativeHandle } from "react";
 import { Song } from "../../typings";
 import styles from "./index.module.scss";
 import { actions } from "../Player/store";
 import { useDispatch, useSelector } from "react-redux";
 import LazyLoad from "react-lazyload";
 import { deepClone } from "../../utils/tools";
-import { StoreState } from "../../store";
 import { formatSingerName } from "../../utils/format";
+import { useRef } from "react";
 
 export interface SongListProps {
   recommendSongs: Song[];
+  curId: number;
 }
 
-const SongList: FC<SongListProps> = (props: SongListProps) => {
-  const { recommendSongs } = props;
+export interface SongListInstance {
+  play: (idx: number) => void;
+  getListDom?: () => HTMLDivElement | null;
+}
+
+const SongList = forwardRef((props: SongListProps, ref) => {
+  const { recommendSongs, curId } = props;
   const dispatch = useDispatch();
   const handleSongClick = (idx: number) => {
     dispatch(actions.changeSongListAction(deepClone(recommendSongs)));
     dispatch(actions.changeCurrentIndexAction(idx));
   };
-  const { curIdx } = useSelector((state: StoreState) => ({
-    songList: state.player.songList,
-    curIdx: state.player.currentIndex,
-  }));
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useImperativeHandle(ref, (): SongListInstance => {
+    return {
+      play: (idx) => {
+        handleSongClick(idx);
+      },
+      getListDom: () => {
+        return listRef.current;
+      },
+    };
+  });
 
   return (
-    <div className={styles["songs-wrapper"]}>
+    <div className={styles["songs-wrapper"]} ref={listRef}>
       <div className={styles["wrapper-content"]}>
         {recommendSongs.map((songItem, idx) => {
           return (
@@ -68,7 +82,9 @@ const SongList: FC<SongListProps> = (props: SongListProps) => {
                     handleSongClick(idx);
                   }}
                 >
-                  <Icon icon={idx === curIdx ? "podcast" : "play"}></Icon>
+                  <Icon
+                    icon={songItem.id === curId ? "podcast" : "play"}
+                  ></Icon>
                 </Button>
               </CardContent>
             </Card>
@@ -77,6 +93,6 @@ const SongList: FC<SongListProps> = (props: SongListProps) => {
       </div>
     </div>
   );
-};
+});
 
 export default memo(SongList);
