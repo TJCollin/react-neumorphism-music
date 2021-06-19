@@ -8,7 +8,7 @@ import { getRecommendSongsAcrion } from "./store/actions";
 import SongList from "../../components/SongList";
 import RecommendList from "./RecommendList";
 import Scroll from "../../components/Scroll";
-import Loading from "../../components/loading";
+import Loading from "../../components/Loading";
 import { renderRoutes, RouteConfigComponentProps } from "react-router-config";
 const { getRecommendListAction } = actions;
 

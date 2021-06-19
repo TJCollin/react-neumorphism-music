@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { StoreState } from "../../store";
 import RankList from "./List";
 import { getRankListAction } from "./store/actions";
-import Loading from "../../components/loading";
+import Loading from "../../components/Loading";
 import { renderRoutes, RouteConfigComponentProps } from "react-router-config";
 const Rank: FC<RouteConfigComponentProps> = ({ route }) => {
   const { globalList, curInx, officialList, loading } = useSelector(

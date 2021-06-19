@@ -4,7 +4,7 @@ import { forceCheck } from "react-lazyload";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { CSSTransition } from "react-transition-group";
-import Loading from "../../components/loading";
+import Loading from "../../components/Loading";
 import Scroll from "../../components/Scroll";
 import SongList from "../../components/SongList";
 import { StoreState } from "../../store";
