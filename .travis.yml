@@ -27,4 +27,6 @@ deploy:
   keep_history: true
   local_dir: build
   target_branch: gh-pages
+  on:
+    branch: main
 
