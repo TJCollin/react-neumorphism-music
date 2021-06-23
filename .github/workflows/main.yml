@@ -41,11 +41,11 @@ jobs:
             ${{ runner.os }}-
 
       # Runs a single command using the runners shell
-      - name: Install example dependencies
+      - name: Install dependencies
         run: yarn install
 
       # Runs a set of commands using the runners shell
-      - name: Build example
+      - name: Build project
         run: yarn build
 
       - name: Upload production-ready build files
