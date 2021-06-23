@@ -24,14 +24,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - run: | 
-         git rm -r src/components/loading
-         git config user.name github-actions
-         git config user.email github-actions@github.com
-         git add .
-         git commit -m "remove casing dir loading"
-         git push
-
       - uses: actions/setup-node@v2
         with:
           node-version: "14"
