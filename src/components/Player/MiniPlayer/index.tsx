@@ -1,4 +1,4 @@
-import { Button, Icon } from "collin-ui";
+import { Button, Icon, IconButton } from "collin-ui";
 import React, {
   FC,
   memo,
@@ -71,18 +71,19 @@ const MiniPlayer: FC<MiniPlayerProps> = (props) => {
           </p>
         </div>
         <div className={styles["control"]}>
-          <Button
+          <IconButton
+            rounded
+            icon={playStatus ? "pause" : "play"}
             className={styles["control-button"]}
             onClick={handlePlayButtonClick}
-          >
-            <Icon icon={playStatus ? "pause" : "play"} />
-          </Button>
-          <Button
+          ></IconButton>
+
+          <IconButton
+            rounded
+            icon="list-ul"
             className={styles["control-list"]}
             onClick={handleListButtonClick}
-          >
-            <Icon icon="list-ul" />
-          </Button>
+          ></IconButton>
         </div>
       </div>
     </CSSTransition>

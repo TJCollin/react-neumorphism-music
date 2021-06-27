@@ -1,6 +1,6 @@
-import React, { FC, memo } from "react";
+import React, { memo } from "react";
 import styles from "./index.module.scss";
-import { Button, Icon } from "collin-ui";
+import { IconButton } from "collin-ui";
 import { toggleToastAction } from "../../store/actions";
 import { useDispatch } from "react-redux";
 
@@ -12,12 +12,18 @@ const Header = () => {
 
   return (
     <header className={styles["header"]}>
-      <Button className={styles["menu"]} onClick={handleClick}>
-        <Icon icon="list"></Icon>
-      </Button>
-      <Button className={styles["search"]} onClick={handleClick}>
-        <Icon icon="search"></Icon>
-      </Button>
+      <IconButton
+        rounded
+        className={styles["menu"]}
+        icon="list"
+        onClick={handleClick}
+      ></IconButton>
+      <IconButton
+        onClick={handleClick}
+        rounded
+        className={styles["search"]}
+        icon="search"
+      ></IconButton>
     </header>
   );
 };

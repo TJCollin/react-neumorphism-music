@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Icon } from "collin-ui";
+import { Button, Card, CardContent, Icon, IconButton } from "collin-ui";
 import React, { FC, forwardRef, memo, useImperativeHandle } from "react";
 import { Song } from "../../typings";
 import styles from "./index.module.scss";
@@ -76,16 +76,14 @@ const SongList = forwardRef((props: SongListProps, ref) => {
                     }`}
                   </p>
                 </div>
-                <Button
+                <IconButton
+                  rounded
+                  icon={songItem.id === curId ? "podcast" : "play"}
                   className={styles["play-button"]}
                   onClick={() => {
                     handleSongClick(idx);
                   }}
-                >
-                  <Icon
-                    icon={songItem.id === curId ? "podcast" : "play"}
-                  ></Icon>
-                </Button>
+                ></IconButton>
               </CardContent>
             </Card>
           );

@@ -1,4 +1,4 @@
-import { Button, Icon, ProgressBar } from "collin-ui";
+import { Button, Icon, IconButton, ProgressBar } from "collin-ui";
 import React, { FC, useEffect, useState, MouseEvent, TouchEvent } from "react";
 import { useRef } from "react";
 import { memo } from "react";
@@ -106,28 +106,41 @@ const Controller: FC<ControllerProps> = ({
         onTouchEnd={handleTouchEnd}
       ></ProgressBar>
       <div className={styles["button-group"]}>
-        <Button
+        <IconButton
+          rounded
           className={styles["control-button"]}
           onClick={handleRecycleClick}
-        >
-          <Icon icon="sync"></Icon>
-        </Button>
-        <Button className={styles["control-button"]} onClick={handlePreClick}>
-          <Icon icon="backward"></Icon>
-        </Button>
-        <Button
+          icon="sync"
+        ></IconButton>
+
+        <IconButton
+          rounded
+          icon="backward"
+          className={styles["control-button"]}
+          onClick={handlePreClick}
+        ></IconButton>
+
+        <IconButton
+          rounded
+          icon={status ? "pause" : "play"}
           size="lg"
           className={styles["control-button"]}
           onClick={handlePlayButtonClick}
-        >
-          <Icon icon={status ? "pause" : "play"}></Icon>
-        </Button>
-        <Button className={styles["control-button"]} onClick={handleNextClick}>
-          <Icon icon="forward"></Icon>
-        </Button>
-        <Button className={styles["control-button"]}>
-          <Icon icon="list-ul" onClick={handleListButtonClick}></Icon>
-        </Button>
+        ></IconButton>
+
+        <IconButton
+          rounded
+          icon="forward"
+          className={styles["control-button"]}
+          onClick={handleNextClick}
+        ></IconButton>
+
+        <IconButton
+          rounded
+          icon="list-ul"
+          className={styles["control-button"]}
+          onClick={handleListButtonClick}
+        ></IconButton>
       </div>
     </div>
   );

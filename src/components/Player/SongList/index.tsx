@@ -13,7 +13,7 @@ import styles from "./index.module.scss";
 import Scroll, { Position } from "../../Scroll";
 import { useDispatch } from "react-redux";
 import { changeShowSongListAction, deleteSongAction } from "../store/actions";
-import { Button, Icon } from "collin-ui";
+import { Button, Icon, IconButton } from "collin-ui";
 import { formatSingerName } from "../../../utils/format";
 import classNames from "classnames";
 
@@ -162,15 +162,15 @@ const SongList: FC<SongListProps> = (props) => {
 
                         {`${item.name} - ${formatSingerName(item.singers)} `}
                       </p>
-                      <Button
+                      <IconButton
+                        rounded
+                        icon="trash"
                         className={styles["delete"]}
                         btnType="primary"
                         onClick={(e) => {
                           handleDeleteClick(e, idx);
                         }}
-                      >
-                        <Icon icon="trash"></Icon>
-                      </Button>
+                      ></IconButton>
                     </li>
                   );
                 })}

@@ -4,6 +4,7 @@ import { forceCheck } from "react-lazyload";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import { CSSTransition } from "react-transition-group";
+import BackHeader from "../../components/BackHeader";
 import Loading from "../../components/Loading";
 import Scroll from "../../components/Scroll";
 import SongList from "../../components/SongList";
@@ -70,10 +71,8 @@ const Album: FC = () => {
     >
       {
         <div className={styles["album-wrap"]}>
-          <div className={styles["header"]} onClick={goBack}>
-            <Icon icon="chevron-left"></Icon>
-            <h1>歌单</h1>
-          </div>
+          <BackHeader onBack={goBack} title="歌单"></BackHeader>
+
           {!loading && (
             <div style={wrapperStyle}>
               {albumDetail && (

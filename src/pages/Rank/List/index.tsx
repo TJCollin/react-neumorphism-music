@@ -15,47 +15,47 @@ const RankList: FC<RankListProps> = ({ listData }) => {
       <div className={styles["rankItem-list"]}>
         {listData.map((rankItem) => {
           return (
-            <Card className={styles["card"]} key={rankItem.id}>
-              <CardContent className={styles["content"]}>
-                <div className={styles["img"]}>
-                  <LazyLoad
-                    debounce={500}
-                    placeholder={
+            <Link to={`/rank/${rankItem.id}`}>
+              <Card className={styles["card"]} key={rankItem.id}>
+                <CardContent className={styles["content"]}>
+                  <div className={styles["img"]}>
+                    <LazyLoad
+                      debounce={500}
+                      placeholder={
+                        <img
+                          src={
+                            require("../../../assets/images/music.png").default
+                          }
+                          alt="music"
+                          width="50"
+                          height="100%"
+                          className={styles["img"]}
+                        />
+                      }
+                    >
                       <img
-                        src={
-                          require("../../../assets/images/music.png").default
-                        }
-                        alt="music"
-                        width="50"
-                        height="100%"
+                        src={rankItem.coverImgUrl}
+                        alt=""
                         className={styles["img"]}
+                        width="100%"
+                        height="100%"
                       />
-                    }
-                  >
-                    <img
-                      src={rankItem.coverImgUrl}
-                      alt=""
-                      className={styles["img"]}
-                      width="100%"
-                      height="100%"
-                    />
-                  </LazyLoad>
-                </div>
-                <ul className={styles["song-list"]}>
-                  {rankItem.tracks &&
-                    rankItem.tracks.map((cur: RankTrack, index: number) => (
-                      <Link to={`/rank/${rankItem.id}`}>
+                    </LazyLoad>
+                  </div>
+                  <ul className={styles["song-list"]}>
+                    {rankItem.tracks &&
+                      rankItem.tracks.map((cur: RankTrack, index: number) => (
                         <li className={styles["song-item"]} key={index}>
                           <span>{index + 1}.</span>
                           <span>{cur.first}</span>
                           <span> - </span>
                           <span>{cur.second}</span>
                         </li>
-                      </Link>
-                    ))}
-                </ul>
-              </CardContent>
-            </Card>
+                      ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </Link>
           );
         })}
       </div>

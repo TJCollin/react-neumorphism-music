@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import HomeLayout from "./layouts/HomeLayout";
 import style from "./App.module.scss";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import routes from "./router";
 import { Provider } from "react-redux";
@@ -10,9 +10,9 @@ function App() {
   return (
     <Provider store={store}>
       <div className={style["App"]}>
-        <BrowserRouter>
+        <HashRouter>
           <Suspense fallback={null}>{renderRoutes(routes)}</Suspense>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     </Provider>
   );

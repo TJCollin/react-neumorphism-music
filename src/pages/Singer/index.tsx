@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Icon } from "collin-ui";
+import { Button, Card, CardContent, Icon, IconButton } from "collin-ui";
 import React, { FC, memo, useEffect, useState } from "react";
 import { forceCheck } from "react-lazyload";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +13,7 @@ import { getSingerDetailAction } from "./store/actions";
 import { toggleToastAction } from "../../store/actions";
 import { useRef } from "react";
 import { changePlayStatusAction } from "../../components/Player/store/actions";
+import BackHeader from "../../components/BackHeader";
 
 export interface SingerRouteParams {
   id: string;
@@ -70,22 +71,19 @@ const Singer = () => {
     >
       {
         <div className={styles["album-wrap"]}>
-          <div className={styles["header"]} onClick={goBack}>
-            <Icon icon="chevron-left"></Icon>
-            <p className={styles["singer-name"]}>{singerDetail?.name}</p>
-          </div>
+          <BackHeader title={singerDetail?.name} onBack={goBack}></BackHeader>
           {!loading && (
             <div style={wrapperStyle}>
               {singerDetail && (
                 <Scroll onScroll={forceCheck}>
                   <div>
                     <div className={styles["detail-wrap"]}>
-                      <Button
+                      <IconButton
+                        rounded
+                        icon="sync"
                         className={styles["detail-button"]}
                         onClick={handlePlayClick}
-                      >
-                        <Icon icon={status ? "pause" : "play"}></Icon>
-                      </Button>
+                      ></IconButton>
                       <Card className={styles["img-card"]}>
                         <CardContent
                           className={styles["content"]}
@@ -94,12 +92,12 @@ const Singer = () => {
                           }}
                         ></CardContent>
                       </Card>
-                      <Button
+                      <IconButton
+                        rounded
                         className={styles["detail-button"]}
                         onClick={handleMoreClick}
-                      >
-                        <Icon icon="ellipsis-h"></Icon>
-                      </Button>
+                        icon="ellipsis-h"
+                      ></IconButton>
                     </div>
                     <div className={styles["songs-wrap"]}>
                       <SongList
