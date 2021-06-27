@@ -3,6 +3,7 @@ import Scroll from "../../../components/Scroll";
 import { Alpha } from "../../../typings/localData";
 import styles from "./index.module.scss";
 import classes from "classnames";
+import { Button } from "collin-ui";
 
 export interface TabsProps {
   tabsData: Alpha[];
@@ -22,15 +23,13 @@ const Tabs: FC<TabsProps> = ({ tabsData, curType, onItemClick }) => {
         {tabsData &&
           tabsData.map((item) => (
             <li
-              className={classes(
-                styles["list-item"],
-                curType === item.key && styles["actived"]
-              )}
+              className={classes(styles["list-item"])}
               key={item.key}
               data-value={item.key}
               onClick={handleClick}
             >
-              {item.name}
+              {curType !== item.key && item.name}
+              {curType === item.key && <Button size="sm">{item.name}</Button>}
             </li>
           ))}
       </ul>
