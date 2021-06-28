@@ -15,23 +15,27 @@ const Tabs: FC<TabsProps> = ({ tabsData, curType, onItemClick }) => {
   const handleClick = (e: MouseEvent) => {
     const target = e.target as HTMLElement,
       itemValue = target.dataset.value;
+    console.log(itemValue);
     itemValue && onItemClick(itemValue);
   };
   return (
     <Scroll direction="horizontal">
       <ul className={styles["tab-list"]}>
         {tabsData &&
-          tabsData.map((item) => (
-            <li
-              className={classes(styles["list-item"])}
-              key={item.key}
-              data-value={item.key}
-              onClick={handleClick}
-            >
-              {curType !== item.key && item.name}
-              {curType === item.key && <Button size="sm">{item.name}</Button>}
-            </li>
-          ))}
+          tabsData.map((item) => {
+            item.key = item.key || "all";
+            return (
+              <li
+                className={classes(styles["list-item"])}
+                key={item.key}
+                data-value={item.key}
+                onClick={handleClick}
+              >
+                {curType !== item.key && item.name}
+                {curType === item.key && <Button size="sm">{item.name}</Button>}
+              </li>
+            );
+          })}
       </ul>
     </Scroll>
   );
